@@ -30,7 +30,7 @@
       font-size: var(--text);
       line-height: var(--leading);
       color: #000;
-      background: #fff; 
+      background: #fff;
     }
 
     .container{
@@ -38,7 +38,7 @@
       margin: 0 auto;
     }
 
-    /* same header style as site: name left only */
+    /* header: name only */
     .header{
       display: flex;
       justify-content: space-between;
@@ -60,9 +60,9 @@
     }
     a:hover{ text-decoration: underline; }
 
+    /* bio block (no duplicate name) */
     .bio{
-      margin-top: 0;
-      margin-bottom: var(--section-gap);
+      margin: 0 0 var(--section-gap) 0;
     }
     .bio div{ margin: 0 0 4px 0; }
 
@@ -96,11 +96,18 @@
       font-style: italic;
     }
 
+    /* prevent ugly wraps like the Teaching line breaking */
+    .entry{
+      white-space: nowrap;
+    }
+
     @media (max-width: 640px){
       :root{
         --pad-y: 24px;
         --year-col: 64px;
       }
+      /* on phones, allow wrapping so it doesn't overflow */
+      .entry{ white-space: normal; }
     }
   </style>
 </head>
@@ -112,7 +119,6 @@
     </div>
 
     <div class="bio">
-      <div>Nate Antolik</div>
       <div>b. 1981, lives and works in Brooklyn</div>
       <div>nateantolik@gmail.com</div>
     </div>
@@ -181,4 +187,3 @@
   </div>
 </body>
 </html>
-
