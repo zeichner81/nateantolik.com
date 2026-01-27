@@ -16,6 +16,8 @@
 
       --header-gap: 18px;
       --caption-top: 10px;
+
+      --viewer-offset: 75px; /* key rule */
     }
 
     html, body{
@@ -33,16 +35,9 @@
     .container{
       max-width: var(--max);
       margin: 0 auto;
-
-      height: calc(100vh - (var(--pad-y) * 2));
-      height: calc(100svh - (var(--pad-y) * 2));
-      height: calc(100dvh - (var(--pad-y) * 2));
-
-      display: grid;
-      grid-template-rows: auto 1fr;
     }
 
-    /* Centered header */
+    /* Header */
     .header{
       display: flex;
       justify-content: center;
@@ -50,7 +45,6 @@
       gap: var(--header-gap);
       font-size: var(--header-size);
       line-height: 1.2;
-      margin-bottom: 12px;
       text-align: center;
       white-space: nowrap;
     }
@@ -70,21 +64,42 @@
       text-decoration: underline;
     }
 
-    /* Viewer: image area + caption */
+    /* Viewer sits a fixed distance below header */
     .viewer{
-      display: grid;
-      grid-template-rows: minmax(0, 1fr) auto;
-      justify-items: center;
+      margin-top: var(--viewer-offset);
+
+      height: calc(
+        100vh
+        - (var(--pad-y) * 2)
+        - var(--viewer-offset)
+      );
+
+      height: calc(
+        100svh
+        - (var(--pad-y) * 2)
+        - var(--viewer-offset)
+      );
+
+      height: calc(
+        100dvh
+        - (var(--pad-y) * 2)
+        - var(--viewer-offset)
+      );
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
       min-height: 0;
     }
 
-    /* Image wrapper hugs image vertically */
     .imagewrap{
-      width: 100%;
-      min-height: 0;
+      flex: 1;
       display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: flex-end;
+      min-height: 0;
+      width: 100%;
     }
 
     #workImage{
@@ -112,8 +127,8 @@
       :root{
         --pad-y: 24px;
         --header-gap: 12px;
+        --viewer-offset: 60px; /* slightly tighter on mobile */
       }
-      /* allow header to wrap on very small screens */
       .header{ white-space: normal; }
     }
   </style>
