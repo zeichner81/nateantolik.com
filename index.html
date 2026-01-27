@@ -11,14 +11,13 @@
       --pad-x: 20px;
       --max: 1100px;
 
-      --header-size: 14px;
+      --header-size: 16px;
       --caption-size: 12px;
 
       --header-gap: 18px;
       --caption-top: 10px;
 
-      /* viewer spacing */
-      --viewer-top: 50px;
+      --viewer-top: 24px;
     }
 
     html, body{
@@ -67,7 +66,7 @@
 
     /* Viewer */
     .viewer{
-      margin-top: var(--viewer-top);
+      padding-top: var(--viewer-top);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -105,6 +104,7 @@
       :root{
         --pad-y: 24px;
         --header-gap: 12px;
+        --viewer-top: 18px;
       }
       .header{ white-space: normal; }
     }
@@ -119,7 +119,7 @@
       <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
     </div>
 
-    <main class="viewer" aria-live="polite">
+    <main class="viewer" id="viewer" aria-live="polite">
       <figure class="work">
         <img id="workImage" src="" alt="" />
         <figcaption id="workCaption"></figcaption>
@@ -144,10 +144,11 @@
     let i = 0;
 
     const headerEl = document.getElementById("header");
+    const viewerEl = document.getElementById("viewer");
     const imgEl = document.getElementById("workImage");
     const capEl = document.getElementById("workCaption");
 
-    function fitImage(){
+    function fitAndCenter(){
       const vh = (window.visualViewport && window.visualViewport.height)
         ? window.visualViewport.height
         : window.innerHeight;
@@ -167,11 +168,25 @@
         - (padY * 2)
         - headerH
         - viewerTop
-        - captionH
         - captionTop
+        - captionH
         - buffer;
 
-      imgEl.style.maxHeight = Math.max(120, Math.floor(available)) + "px";
+      const imgMax = Math.max(120, Math.floor(available));
+      imgEl.style.maxHeight = imgMax + "px";
+
+      const blockH = imgMax + captionTop + captionH;
+      const extra =
+        vh
+        - (padY * 2)
+        - headerH
+        - blockH
+        - buffer;
+
+      const pad = Math.max(0, Math.floor(extra * 0.5));
+
+      viewerEl.style.paddingTop = (viewerTop + pad) + "px";
+      viewerEl.style.paddingBottom = pad + "px";
     }
 
     function render(index){
@@ -179,8 +194,7 @@
       imgEl.src = w.src;
       imgEl.alt = w.alt || "";
       capEl.innerHTML = w.caption || "";
-
-      fitImage();
+      fitAndCenter();
     }
 
     function next(){
@@ -188,10 +202,10 @@
       render(i);
     }
 
-    imgEl.addEventListener("load", fitImage);
-    window.addEventListener("resize", fitImage);
+    imgEl.addEventListener("load", fitAndCenter);
+    window.addEventListener("resize", fitAndCenter);
     if (window.visualViewport){
-      window.visualViewport.addEventListener("resize", fitImage);
+      window.visualViewport.addEventListener("resize", fitAndCenter);
     }
 
     imgEl.addEventListener("click", next);
