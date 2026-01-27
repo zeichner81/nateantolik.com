@@ -16,9 +16,6 @@
 
       --header-gap: 18px;
       --caption-top: 10px;
-
-      /* reserve space for caption line + margin (safe for mobile) */
-      --caption-block: 44px;
     }
 
     html, body{
@@ -36,15 +33,6 @@
     .container{
       max-width: var(--max);
       margin: 0 auto;
-
-      /* stable full-height layout */
-      height: calc(100vh - (var(--pad-y) * 2));
-      height: calc(100svh - (var(--pad-y) * 2));
-      height: calc(100dvh - (var(--pad-y) * 2));
-
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
     }
 
     .header{
@@ -72,30 +60,24 @@
       text-decoration: underline;
     }
 
+    /* viewer sits below header; JS will size the image */
     .viewer{
-      flex: 1;
-      min-height: 0;
-
-      /* centers the whole image+caption block */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    figure.work{
-      margin: 0;
-      width: 100%;
-      max-height: 100%;
-
+      margin-top: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Key: image fits remaining height after caption */
+    figure.work{
+      margin: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     #workImage{
       max-width: 100%;
-      max-height: calc(100% - var(--caption-block));
       width: auto;
       height: auto;
       object-fit: contain;
@@ -118,16 +100,16 @@
       :root{
         --pad-y: 24px;
         --header-gap: 12px;
-        --caption-block: 52px; /* captions wrap more on phones */
       }
       .header{ white-space: normal; }
+      .viewer{ margin-top: 18px; }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <div class="header">
+    <div class="header" id="header">
       <h1 class="name">Nate Antolik</h1>
       <span>nateantolik@gmail.com</span>
       <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
@@ -157,8 +139,40 @@
 
     let i = 0;
 
+    const headerEl = document.getElementById("header");
     const imgEl = document.getElementById("workImage");
     const capEl = document.getElementById("workCaption");
+
+    function fitImageToViewport(){
+      // Use the real visible viewport height (best on mobile + desktop)
+      const vh = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
+
+      // Compute paddings from CSS variables
+      const styles = getComputedStyle(document.documentElement);
+      const padY = parseFloat(styles.getPropertyValue("--pad-y")) || 0;
+
+      // Measure actual elements
+      const headerH = headerEl.getBoundingClientRect().height;
+      const viewerMarginTop = parseFloat(getComputedStyle(document.querySelector(".viewer")).marginTop) || 0;
+
+      // Ensure caption is measured after it renders
+      const captionH = capEl.getBoundingClientRect().height;
+      const captionTop = parseFloat(styles.getPropertyValue("--caption-top")) || 0;
+
+      // Small safety buffer to prevent scrollbars from rounding
+      const buffer = 6;
+
+      const available =
+        vh
+        - (padY * 2)
+        - headerH
+        - viewerMarginTop
+        - captionH
+        - captionTop
+        - buffer;
+
+      imgEl.style.maxHeight = Math.max(120, Math.floor(available)) + "px";
+    }
 
     function render(index){
       const w = works[index];
@@ -166,15 +180,19 @@
       imgEl.alt = w.alt || "";
       capEl.innerHTML = w.caption || "";
 
-      const next = works[(index + 1) % works.length];
-      const pre = new Image();
-      pre.src = next.src;
+      // After caption changes, re-fit.
+      // Also re-fit again after the image loads (natural size becomes known).
+      fitImageToViewport();
     }
 
     function next(){
       i = (i + 1) % works.length;
       render(i);
     }
+
+    imgEl.addEventListener("load", fitImageToViewport);
+    window.addEventListener("resize", fitImageToViewport);
+    if (window.visualViewport) window.visualViewport.addEventListener("resize", fitImageToViewport);
 
     imgEl.addEventListener("click", next);
     imgEl.addEventListener("touchend", function(e){
