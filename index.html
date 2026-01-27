@@ -6,42 +6,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body {
+    :root{
+      --max: 900px;
+      --pad-x: 20px;
+      --pad-y: 40px;
+      --title: 18px;
+      --meta: 14px;
+      --caption: 16px;
+      --gap-header: 60px;
+      --gap-work: 80px;
+      --caption-top: 12px;
+    }
+
+    body{
       margin: 0;
-      padding: 40px 20px;
+      padding: var(--pad-y) var(--pad-x);
       font-family: serif;
       background: #fff;
       color: #000;
     }
 
-    .container {
-      max-width: 900px;
+    .container{
+      max-width: var(--max);
       margin: 0 auto;
     }
 
-    .header {
-      margin-bottom: 60px;
+    .header{
+      margin-bottom: var(--gap-header);
     }
 
-    .header h1 {
-      font-size: 18px;
+    .header h1{
+      font-size: var(--title);
       font-weight: normal;
       margin: 0 0 12px 0;
     }
 
-    .header p {
+    .header p{
       margin: 0;
-      font-size: 14px;
+      font-size: var(--meta);
     }
 
-    figure {
-      margin: 0 0 80px 0;
+    .header a{
+      color: inherit;
+      text-decoration: none;
     }
 
-    img {
+    .header a:hover{
+      text-decoration: underline;
+    }
+
+    figure.work{
+      margin: 0 0 var(--gap-work) 0;
+    }
+
+    img{
       width: 100%;
       height: auto;
       display: block;
+    }
+
+    figcaption{
+      margin-top: var(--caption-top);
+      font-size: var(--caption);
+      line-height: 1.35;
+    }
+
+    figcaption em{
+      font-style: italic;
+    }
+
+    @media (max-width: 640px){
+      :root{
+        --pad-y: 28px;
+        --gap-header: 44px;
+        --gap-work: 64px;
+        --caption: 15px;
+      }
     }
   </style>
 </head>
@@ -52,29 +92,34 @@
     <div class="header">
       <h1>Nate Antolik</h1>
       <p>nateantolik@gmail.com</p>
+      <!-- Optional:
+      <p><a href="cv.pdf" target="_blank" rel="noopener">CV</a></p>
+      -->
     </div>
 
-<figure class="work">
-  <img src="images/handmirror.jpg"
-       alt="Hand Mirror with Chair Reflected, oil on panel, 14 × 11 in., 2024"
-       loading="lazy"
-       decoding="async">
-
-  <figcaption>
-    <em>Hand Mirror with Chair Reflected</em>, oil on panel, 14 × 11 in., 2024
-  </figcaption>
-</figure>
+    <figure class="work">
+      <img
+        src="images/handmirror.jpg"
+        alt="Hand Mirror with Chair Reflected, oil on panel, 14 × 11 in., 2024"
+        loading="lazy"
+        decoding="async"
+      >
+      <figcaption>
+        <em>Hand Mirror with Chair Reflected</em>, oil on panel, 14 × 11 in., 2024
+      </figcaption>
+    </figure>
 
     <figure class="work">
-  <img src="images/foldingchair.jpg"
-       alt="Folding Chair, oil on canvas, 24 × 20 in., 2025"
-       loading="lazy"
-       decoding="async">
-
-  <figcaption>
-    <em>Folding Chair</em>, oil on canvas, 24 × 20 in., 2025
-  </figcaption>
-</figure>
+      <img
+        src="images/foldingchair.jpg"
+        alt="Folding Chair, oil on canvas, 24 × 20 in., 2025"
+        loading="lazy"
+        decoding="async"
+      >
+      <figcaption>
+        <em>Folding Chair</em>, oil on canvas, 24 × 20 in., 2025
+      </figcaption>
+    </figure>
 
   </div>
 </body>
