@@ -84,19 +84,23 @@
       min-height: 0;
     }
 
-    .viewer img{
-      max-width: 100%;
-      width: auto;
-      height: auto;
-      max-height: 100%;
-      object-fit: contain;
+   .viewer img{
+  max-width: 100%;
+  width: auto;
+  height: auto;
 
-      display: block;
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-drag: none;
-      -webkit-tap-highlight-color: transparent;
-    }
+  /* key change: leave room for caption */
+  max-height: calc(100% - 34px);
+
+  object-fit: contain;
+
+  display: block;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 
     .caption{
       margin-top: var(--caption-top);
