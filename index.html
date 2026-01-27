@@ -42,14 +42,17 @@
       grid-template-rows: auto 1fr;
     }
 
+    /* Centered header */
     .header{
       display: flex;
+      justify-content: center;
       align-items: baseline;
       gap: var(--header-gap);
       font-size: var(--header-size);
       line-height: 1.2;
-      white-space: nowrap;
       margin-bottom: 12px;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .header .name{
@@ -67,22 +70,21 @@
       text-decoration: underline;
     }
 
-    .sep{ opacity: 0.65; }
-
-    /* Viewer: image area (fills) + caption (auto) */
+    /* Viewer: image area + caption */
     .viewer{
       display: grid;
       grid-template-rows: minmax(0, 1fr) auto;
       justify-items: center;
-      min-height: 0; /* critical */
+      min-height: 0;
     }
 
+    /* Image wrapper hugs image vertically */
     .imagewrap{
       width: 100%;
-      min-height: 0; /* critical */
+      min-height: 0;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: flex-end;
     }
 
     #workImage{
@@ -104,7 +106,6 @@
       font-size: var(--caption-size);
       line-height: 1.35;
       text-align: center;
-      max-width: 90%;
     }
 
     @media (max-width: 640px){
@@ -112,8 +113,8 @@
         --pad-y: 24px;
         --header-gap: 12px;
       }
-      /* optional: avoid horizontal overflow if header is tight */
-      /* .header{ white-space: normal; } */
+      /* allow header to wrap on very small screens */
+      .header{ white-space: normal; }
     }
   </style>
 </head>
@@ -122,9 +123,7 @@
   <div class="container">
     <div class="header">
       <h1 class="name">Nate Antolik</h1>
-      <span class="sep">—</span>
       <span>nateantolik@gmail.com</span>
-      <span class="sep">—</span>
       <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
     </div>
 
