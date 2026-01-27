@@ -17,7 +17,8 @@
       --header-gap: 18px;
       --caption-top: 10px;
 
-      --viewer-offset: 75px; /* key rule */
+      /* reserve space for caption line + margin (safe for mobile) */
+      --caption-block: 44px;
     }
 
     html, body{
@@ -35,9 +36,17 @@
     .container{
       max-width: var(--max);
       margin: 0 auto;
+
+      /* stable full-height layout */
+      height: calc(100vh - (var(--pad-y) * 2));
+      height: calc(100svh - (var(--pad-y) * 2));
+      height: calc(100dvh - (var(--pad-y) * 2));
+
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
-    /* Header */
     .header{
       display: flex;
       justify-content: center;
@@ -59,52 +68,34 @@
       color: inherit;
       text-decoration: none;
     }
-
     .header a:hover{
       text-decoration: underline;
     }
 
-    /* Viewer sits a fixed distance below header */
     .viewer{
-      margin-top: var(--viewer-offset);
+      flex: 1;
+      min-height: 0;
 
-      height: calc(
-        100vh
-        - (var(--pad-y) * 2)
-        - var(--viewer-offset)
-      );
+      /* centers the whole image+caption block */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      height: calc(
-        100svh
-        - (var(--pad-y) * 2)
-        - var(--viewer-offset)
-      );
-
-      height: calc(
-        100dvh
-        - (var(--pad-y) * 2)
-        - var(--viewer-offset)
-      );
+    figure.work{
+      margin: 0;
+      width: 100%;
+      max-height: 100%;
 
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 0;
     }
 
-    .imagewrap{
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 0;
-      width: 100%;
-    }
-
+    /* Key: image fits remaining height after caption */
     #workImage{
       max-width: 100%;
-      max-height: 100%;
+      max-height: calc(100% - var(--caption-block));
       width: auto;
       height: auto;
       object-fit: contain;
@@ -116,7 +107,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .caption{
+    figcaption{
       margin-top: var(--caption-top);
       font-size: var(--caption-size);
       line-height: 1.35;
@@ -127,7 +118,7 @@
       :root{
         --pad-y: 24px;
         --header-gap: 12px;
-        --viewer-offset: 60px; /* slightly tighter on mobile */
+        --caption-block: 52px; /* captions wrap more on phones */
       }
       .header{ white-space: normal; }
     }
@@ -143,10 +134,10 @@
     </div>
 
     <main class="viewer" aria-live="polite">
-      <div class="imagewrap">
+      <figure class="work">
         <img id="workImage" src="" alt="" />
-      </div>
-      <div id="workCaption" class="caption"></div>
+        <figcaption id="workCaption"></figcaption>
+      </figure>
     </main>
   </div>
 
