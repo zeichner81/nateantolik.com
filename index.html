@@ -6,83 +6,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-    :root{
-      --pad-y: 40px;
-      --pad-x: 20px;
-      --max: 1100px;
+    html, body{
+  height: 100%;
+}
 
-      --header-size: 14px;
-      --caption-size: 12px;
+body{
+  margin: 0;
+  padding: var(--pad-y) var(--pad-x);
+  font-family: "Times New Roman", Times, serif;
+  background: #fff;
+  color: #000;
 
-      --header-gap: 18px;
-      --caption-top: 10px;
-    }
+  /* iOS-safe viewport height */
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
 
-    body{
-      margin: 0;
-      padding: var(--pad-y) var(--pad-x);
-      font-family: "Times New Roman", Times, serif;
-      background: #fff;
-      color: #000;
-    }
+.container{
+  max-width: var(--max);
+  margin: 0 auto;
 
-    .container{
-      max-width: var(--max);
-      margin: 0 auto;
-    }
+  /* key: split page into header + viewer */
+  min-height: calc(100vh - (var(--pad-y) * 2));
+  min-height: calc(100svh - (var(--pad-y) * 2));
+  min-height: calc(100dvh - (var(--pad-y) * 2));
 
-    /* one-line header */
-    .header{
-      display: flex;
-      align-items: baseline;
-      gap: var(--header-gap);
-      font-size: var(--header-size);
-      line-height: 1.2;
-      margin-bottom: 22px;
-      white-space: nowrap;
-    }
+  display: flex;
+  flex-direction: column;
+}
 
-    .header .name{
-      font-weight: normal;
-      margin: 0;
-      font-size: var(--header-size);
-    }
+.header{
+  /* keep your one-line header styles */
+  display: flex;
+  align-items: baseline;
+  gap: var(--header-gap);
+  font-size: var(--header-size);
+  line-height: 1.2;
+  white-space: nowrap;
 
-    .header a{
-      color: inherit;
-      text-decoration: none;
-    }
-    .header a:hover{
-      text-decoration: underline;
-    }
+  /* do NOT use big margin-bottom; use a small one */
+  margin-bottom: 14px;
+}
 
-    .sep{
-      opacity: 0.65;
-    }
-
-    /* viewer */
-    .viewer{
-  min-height: calc(100vh - (var(--pad-y) * 2) - 22px);
+.viewer{
+  /* viewer fills remaining space and centers contents */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  /* prevents overflow from tiny rounding differences */
+  min-height: 0;
 }
 
-/* image sizing */
 .viewer img{
-  width: 100%;
   max-width: 100%;
+  width: auto;
   height: auto;
-  max-height: calc(
-    100vh
-    - (var(--pad-y) * 2)
-    - 22px
-    - 22px
-    - var(--caption-size)
-    - var(--caption-top)
-  );
+
+  /* fit inside the viewer area without causing scroll */
+  max-height: 100%;
   object-fit: contain;
+
   display: block;
   cursor: pointer;
   user-select: none;
@@ -90,7 +77,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* caption */
 .caption{
   margin-top: var(--caption-top);
   font-size: var(--caption-size);
@@ -99,11 +85,6 @@
   max-width: 90%;
 }
 
-
-    @media (max-width: 640px){
-      :root{ --pad-y: 24px; }
-      .header{ gap: 12px; }
-    }
   </style>
 </head>
 
