@@ -6,85 +6,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+    :root{
+      --pad-y: 40px;
+      --pad-x: 20px;
+      --max: 1100px;
+
+      --header-size: 14px;
+      --caption-size: 12px;
+
+      --header-gap: 18px;
+      --caption-top: 10px;
+    }
+
     html, body{
-  height: 100%;
-}
+      height: 100%;
+    }
 
-body{
-  margin: 0;
-  padding: var(--pad-y) var(--pad-x);
-  font-family: "Times New Roman", Times, serif;
-  background: #fff;
-  color: #000;
+    body{
+      margin: 0;
+      padding: var(--pad-y) var(--pad-x);
+      font-family: "Times New Roman", Times, serif;
+      background: #fff;
+      color: #000;
 
-  /* iOS-safe viewport height */
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-}
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
+    }
 
-.container{
-  max-width: var(--max);
-  margin: 0 auto;
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
 
-  /* key: split page into header + viewer */
-  min-height: calc(100vh - (var(--pad-y) * 2));
-  min-height: calc(100svh - (var(--pad-y) * 2));
-  min-height: calc(100dvh - (var(--pad-y) * 2));
+      min-height: calc(100vh - (var(--pad-y) * 2));
+      min-height: calc(100svh - (var(--pad-y) * 2));
+      min-height: calc(100dvh - (var(--pad-y) * 2));
 
-  display: flex;
-  flex-direction: column;
-}
+      display: flex;
+      flex-direction: column;
+    }
 
-.header{
-  /* keep your one-line header styles */
-  display: flex;
-  align-items: baseline;
-  gap: var(--header-gap);
-  font-size: var(--header-size);
-  line-height: 1.2;
-  white-space: nowrap;
+    .header{
+      display: flex;
+      align-items: baseline;
+      gap: var(--header-gap);
+      font-size: var(--header-size);
+      line-height: 1.2;
+      white-space: nowrap;
+      margin-bottom: 14px;
+    }
 
-  /* do NOT use big margin-bottom; use a small one */
-  margin-bottom: 14px;
-}
+    .header .name{
+      margin: 0;
+      font-weight: normal;
+      font-size: var(--header-size);
+    }
 
-.viewer{
-  /* viewer fills remaining space and centers contents */
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    .header a{
+      color: inherit;
+      text-decoration: none;
+    }
 
-  /* prevents overflow from tiny rounding differences */
-  min-height: 0;
-}
+    .header a:hover{
+      text-decoration: underline;
+    }
 
-.viewer img{
-  max-width: 100%;
-  width: auto;
-  height: auto;
+    .sep{
+      opacity: 0.65;
+    }
 
-  /* fit inside the viewer area without causing scroll */
-  max-height: 100%;
-  object-fit: contain;
+    .viewer{
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+    }
 
-  display: block;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-drag: none;
-  -webkit-tap-highlight-color: transparent;
-}
+    .viewer img{
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
 
-.caption{
-  margin-top: var(--caption-top);
-  font-size: var(--caption-size);
-  line-height: 1.35;
-  text-align: center;
-  max-width: 90%;
-}
+      display: block;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-tap-highlight-color: transparent;
+    }
 
+    .caption{
+      margin-top: var(--caption-top);
+      font-size: var(--caption-size);
+      line-height: 1.35;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    @media (max-width: 640px){
+      :root{
+        --pad-y: 24px;
+        --header-gap: 12px;
+      }
+    }
   </style>
 </head>
 
@@ -105,7 +132,6 @@ body{
   </div>
 
   <script>
-    // Add works here, in order.
     const works = [
       {
         src: "images/handmirror.jpg",
@@ -130,7 +156,6 @@ body{
       imgEl.alt = w.alt || "";
       capEl.innerHTML = w.caption || "";
 
-      // Preload next image for snappier taps/clicks
       const next = works[(index + 1) % works.length];
       const pre = new Image();
       pre.src = next.src;
@@ -141,11 +166,12 @@ body{
       render(i);
     }
 
-    // Click/tap advances
     imgEl.addEventListener("click", next);
-    imgEl.addEventListener("touchend", function(e){ e.preventDefault(); next(); }, { passive: false });
+    imgEl.addEventListener("touchend", function(e){
+      e.preventDefault();
+      next();
+    }, { passive: false });
 
-    // Optional: keyboard navigation (left/right)
     document.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter") next();
       if (e.key === "ArrowLeft"){
@@ -154,7 +180,6 @@ body{
       }
     });
 
-    // Start
     render(i);
   </script>
 </body>
