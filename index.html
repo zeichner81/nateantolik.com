@@ -16,6 +16,9 @@
 
       --header-gap: 18px;
       --caption-top: 10px;
+
+      /* viewer spacing */
+      --viewer-top: 24px;
     }
 
     html, body{
@@ -35,6 +38,7 @@
       margin: 0 auto;
     }
 
+    /* Header */
     .header{
       display: flex;
       justify-content: center;
@@ -56,13 +60,14 @@
       color: inherit;
       text-decoration: none;
     }
+
     .header a:hover{
       text-decoration: underline;
     }
 
-    /* viewer sits below header; JS will size the image */
+    /* Viewer */
     .viewer{
-      margin-top: 50px;
+      margin-top: var(--viewer-top);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -100,9 +105,9 @@
       :root{
         --pad-y: 24px;
         --header-gap: 12px;
+        --viewer-top: 18px;
       }
       .header{ white-space: normal; }
-      .viewer{ margin-top: 18px; }
     }
   </style>
 </head>
@@ -143,30 +148,26 @@
     const imgEl = document.getElementById("workImage");
     const capEl = document.getElementById("workCaption");
 
-    function fitImageToViewport(){
-      // Use the real visible viewport height (best on mobile + desktop)
-      const vh = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
+    function fitImage(){
+      const vh = (window.visualViewport && window.visualViewport.height)
+        ? window.visualViewport.height
+        : window.innerHeight;
 
-      // Compute paddings from CSS variables
       const styles = getComputedStyle(document.documentElement);
       const padY = parseFloat(styles.getPropertyValue("--pad-y")) || 0;
-
-      // Measure actual elements
-      const headerH = headerEl.getBoundingClientRect().height;
-      const viewerMarginTop = parseFloat(getComputedStyle(document.querySelector(".viewer")).marginTop) || 0;
-
-      // Ensure caption is measured after it renders
-      const captionH = capEl.getBoundingClientRect().height;
+      const viewerTop = parseFloat(styles.getPropertyValue("--viewer-top")) || 0;
       const captionTop = parseFloat(styles.getPropertyValue("--caption-top")) || 0;
 
-      // Small safety buffer to prevent scrollbars from rounding
+      const headerH = headerEl.getBoundingClientRect().height;
+      const captionH = capEl.getBoundingClientRect().height;
+
       const buffer = 6;
 
       const available =
         vh
         - (padY * 2)
         - headerH
-        - viewerMarginTop
+        - viewerTop
         - captionH
         - captionTop
         - buffer;
@@ -180,9 +181,7 @@
       imgEl.alt = w.alt || "";
       capEl.innerHTML = w.caption || "";
 
-      // After caption changes, re-fit.
-      // Also re-fit again after the image loads (natural size becomes known).
-      fitImageToViewport();
+      fitImage();
     }
 
     function next(){
@@ -190,9 +189,11 @@
       render(i);
     }
 
-    imgEl.addEventListener("load", fitImageToViewport);
-    window.addEventListener("resize", fitImageToViewport);
-    if (window.visualViewport) window.visualViewport.addEventListener("resize", fitImageToViewport);
+    imgEl.addEventListener("load", fitImage);
+    window.addEventListener("resize", fitImage);
+    if (window.visualViewport){
+      window.visualViewport.addEventListener("resize", fitImage);
+    }
 
     imgEl.addEventListener("click", next);
     imgEl.addEventListener("touchend", function(e){
