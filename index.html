@@ -11,13 +11,12 @@
       --pad-x: 20px;
       --max: 1100px;
 
-      --header-size: 16px;
+      --header-size: 14px;
       --caption-size: 12px;
 
-      --header-gap: 18px;
       --caption-top: 10px;
 
-      --viewer-top: 24px;
+      --viewer-top: 70px; /* space under header */
     }
 
     html, body{
@@ -37,22 +36,24 @@
       margin: 0 auto;
     }
 
-    /* Header */
+    /* Header: name left, contact right */
     .header{
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: baseline;
-      gap: var(--header-gap);
       font-size: var(--header-size);
       line-height: 1.2;
-      text-align: center;
-      white-space: nowrap;
     }
 
     .header .name{
       margin: 0;
       font-weight: normal;
       font-size: var(--header-size);
+    }
+
+    .header .right{
+      display: flex;
+      gap: 18px;
     }
 
     .header a{
@@ -64,9 +65,8 @@
       text-decoration: underline;
     }
 
-    /* Viewer */
     .viewer{
-      padding-top: var(--viewer-top);
+      margin-top: var(--viewer-top);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -103,10 +103,19 @@
     @media (max-width: 640px){
       :root{
         --pad-y: 24px;
-        --header-gap: 12px;
-        --viewer-top: 18px;
       }
-      .header{ white-space: normal; }
+
+      /* allow wrapping on small screens */
+      .header{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .header .right{
+        justify-content: flex-start;
+        gap: 12px;
+      }
     }
   </style>
 </head>
@@ -115,11 +124,13 @@
   <div class="container">
     <div class="header" id="header">
       <h1 class="name">Nate Antolik</h1>
-      <span>nateantolik@gmail.com</span>
-      <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+      <div class="right">
+        <span>nateantolik@gmail.com</span>
+        <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+      </div>
     </div>
 
-    <main class="viewer" id="viewer" aria-live="polite">
+    <main class="viewer" aria-live="polite">
       <figure class="work">
         <img id="workImage" src="" alt="" />
         <figcaption id="workCaption"></figcaption>
@@ -144,11 +155,10 @@
     let i = 0;
 
     const headerEl = document.getElementById("header");
-    const viewerEl = document.getElementById("viewer");
     const imgEl = document.getElementById("workImage");
     const capEl = document.getElementById("workCaption");
 
-    function fitAndCenter(){
+    function fitImage(){
       const vh = (window.visualViewport && window.visualViewport.height)
         ? window.visualViewport.height
         : window.innerHeight;
@@ -172,21 +182,7 @@
         - captionH
         - buffer;
 
-      const imgMax = Math.max(120, Math.floor(available));
-      imgEl.style.maxHeight = imgMax + "px";
-
-      const blockH = imgMax + captionTop + captionH;
-      const extra =
-        vh
-        - (padY * 2)
-        - headerH
-        - blockH
-        - buffer;
-
-      const pad = Math.max(0, Math.floor(extra * 0.5));
-
-      viewerEl.style.paddingTop = (viewerTop + pad) + "px";
-      viewerEl.style.paddingBottom = pad + "px";
+      imgEl.style.maxHeight = Math.max(120, Math.floor(available)) + "px";
     }
 
     function render(index){
@@ -194,7 +190,7 @@
       imgEl.src = w.src;
       imgEl.alt = w.alt || "";
       capEl.innerHTML = w.caption || "";
-      fitAndCenter();
+      fitImage();
     }
 
     function next(){
@@ -202,10 +198,10 @@
       render(i);
     }
 
-    imgEl.addEventListener("load", fitAndCenter);
-    window.addEventListener("resize", fitAndCenter);
+    imgEl.addEventListener("load", fitImage);
+    window.addEventListener("resize", fitImage);
     if (window.visualViewport){
-      window.visualViewport.addEventListener("resize", fitAndCenter);
+      window.visualViewport.addEventListener("resize", fitImage);
     }
 
     imgEl.addEventListener("click", next);
