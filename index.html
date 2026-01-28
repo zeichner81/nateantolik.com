@@ -35,7 +35,7 @@
       margin: 0 auto;
     }
 
-    /* Header: desktop */
+    /* HEADER */
     .header{
       display: flex;
       justify-content: space-between;
@@ -55,6 +55,7 @@
       display: flex;
       gap: 18px;
       white-space: nowrap;
+      text-align: right;
     }
 
     a{
@@ -66,6 +67,7 @@
       text-decoration: underline;
     }
 
+    /* VIEWER */
     .viewer{
       margin-top: var(--viewer-top);
       display: flex;
@@ -86,7 +88,6 @@
       width: auto;
       height: auto;
       object-fit: contain;
-
       display: block;
       cursor: pointer;
       user-select: none;
@@ -101,7 +102,7 @@
       text-align: center;
     }
 
-    /* MOBILE: all header text left-aligned, stacked */
+    /* MOBILE */
     @media (max-width: 640px){
       :root{
         --pad-y: 24px;
@@ -117,7 +118,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
-        white-space: normal;
+        text-align: left;
       }
     }
   </style>
@@ -187,4 +188,71 @@
 
     let i = 0;
 
-    c
+    const headerEl = document.getElementById("header");
+    const imgEl = document.getElementById("workImage");
+    const capEl = document.getElementById("workCaption");
+
+    function fitImage(){
+      const vh = (window.visualViewport && window.visualViewport.height)
+        ? window.visualViewport.height
+        : window.innerHeight;
+
+      const styles = getComputedStyle(document.documentElement);
+      const padY = parseFloat(styles.getPropertyValue("--pad-y")) || 0;
+      const viewerTop = parseFloat(styles.getPropertyValue("--viewer-top")) || 0;
+      const captionTop = parseFloat(styles.getPropertyValue("--caption-top")) || 0;
+
+      const headerH = headerEl.getBoundingClientRect().height;
+      const captionH = capEl.getBoundingClientRect().height;
+
+      const buffer = 6;
+
+      const available =
+        vh
+        - (padY * 2)
+        - headerH
+        - viewerTop
+        - captionTop
+        - captionH
+        - buffer;
+
+      imgEl.style.maxHeight = Math.max(120, Math.floor(available)) + "px";
+    }
+
+    function render(index){
+      const w = works[index];
+      imgEl.src = w.src;
+      imgEl.alt = w.alt || "";
+      capEl.innerHTML = w.caption || "";
+      fitImage();
+    }
+
+    function next(){
+      i = (i + 1) % works.length;
+      render(i);
+    }
+
+    imgEl.addEventListener("load", fitImage);
+    window.addEventListener("resize", fitImage);
+    if (window.visualViewport){
+      window.visualViewport.addEventListener("resize", fitImage);
+    }
+
+    imgEl.addEventListener("click", next);
+    imgEl.addEventListener("touchend", function(e){
+      e.preventDefault();
+      next();
+    }, { passive: false });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter") next();
+      if (e.key === "ArrowLeft"){
+        i = (i - 1 + works.length) % works.length;
+        render(i);
+      }
+    });
+
+    render(i);
+  </script>
+</body>
+</html>
