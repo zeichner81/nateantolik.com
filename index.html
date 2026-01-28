@@ -101,19 +101,18 @@
       text-align: center;
     }
 
+    /* MOBILE: only break CV onto its own line */
     @media (max-width: 640px){
       :root{
         --pad-y: 24px;
       }
 
-      .header{
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+      .header .right{
+        flex-wrap: wrap;
       }
 
-      .header .right{
-        gap: 12px;
+      .header .right a{
+        flex-basis: 100%;
       }
     }
   </style>
@@ -139,14 +138,14 @@
 
   <script>
     const works = [
-       {
+      {
         src: "images/articulatedmannequin.jpg",
         alt: "Articulated Mannequin, Torso on Chair, oil on canvas, 40 × 30 in., 2023",
         caption: "<em>Articulated Mannequin, Torso on Chair</em>, oil on canvas, 40 × 30 in., 2023"
       },
       {
         src: "images/assembledmannequin.jpg",
-        alt: "Assembled Mannequin, Reclining, oil on canvas, 62 x 50 in., 2022",
+        alt: "Assembled Mannequin, Reclining, oil on canvas, 62 × 50 in., 2022",
         caption: "<em>Assembled Mannequin</em>, Reclining, oil on canvas, 62 × 50 in., 2022"
       },
       {
@@ -161,8 +160,8 @@
       },
       {
         src: "images/chairgreenroom.jpg",
-        alt: "Chair (Green Room), oil on canvas, 48 × 42 in. 2023",
-        caption: "<em>Chair (Green Room)</em>, oil on canvas, 48 × 42 in. 2023"
+        alt: "Chair (Green Room), oil on canvas, 48 × 42 in., 2023",
+        caption: "<em>Chair (Green Room)</em>, oil on canvas, 48 × 42 in., 2023"
       },
       {
         src: "images/chaironterrace.jpg",
