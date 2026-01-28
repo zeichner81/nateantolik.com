@@ -9,7 +9,7 @@
     :root{
       --pad-y: 40px;
       --pad-x: 20px;
-      --max: 860px;
+      --max: 1100px; /* match index width */
 
       --text: 14px;
       --leading: 1.45;
@@ -18,6 +18,7 @@
       --row-gap: 6px;
 
       --year-col: 72px;
+      --col-gap: 8px; /* tightened by ~10px */
     }
 
     html, body{
@@ -38,10 +39,9 @@
       margin: 0 auto;
     }
 
-    /* header: name only */
+    /* header identical role/position as index */
     .header{
       display: flex;
-      justify-content: space-between;
       align-items: baseline;
       font-size: var(--text);
       line-height: 1.2;
@@ -60,130 +60,7 @@
     }
     a:hover{ text-decoration: underline; }
 
-    /* bio block (no duplicate name) */
     .bio{
       margin: 0 0 var(--section-gap) 0;
     }
-    .bio div{ margin: 0 0 4px 0; }
-
-    h2{
-      font-size: var(--text);
-      font-weight: normal;
-      margin: 0 0 8px 0;
-    }
-
-    .section{
-      margin-top: var(--section-gap);
-    }
-
-    .rows{
-      display: grid;
-      gap: var(--row-gap);
-    }
-
-    .row{
-      display: grid;
-      grid-template-columns: var(--year-col) 1fr;
-      column-gap: 18px;
-      align-items: baseline;
-    }
-
-    .year{
-      white-space: nowrap;
-    }
-
-    .entry em{
-      font-style: italic;
-    }
-
-    /* prevent ugly wraps like the Teaching line breaking */
-    .entry{
-      white-space: nowrap;
-    }
-
-    @media (max-width: 640px){
-      :root{
-        --pad-y: 24px;
-        --year-col: 64px;
-      }
-      /* on phones, allow wrapping so it doesn't overflow */
-      .entry{ white-space: normal; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-    <div class="header">
-      <h1 class="name"><a href="index.html">Nate Antolik</a></h1>
-    </div>
-
-    <div class="bio">
-      <div>b. 1981, lives and works in Brooklyn</div>
-      <div>nateantolik@gmail.com</div>
-    </div>
-
-    <div class="section">
-      <h2>Exhibitions</h2>
-      <div class="rows">
-        <div class="row">
-          <div class="year">2025</div>
-          <div class="entry"><em>Rooms</em>, 15 Orient, New York</div>
-        </div>
-        <div class="row">
-          <div class="year">2025</div>
-          <div class="entry"><em>Cabinet Pictures</em>, The Power Station, Dallas</div>
-        </div>
-        <div class="row">
-          <div class="year">2025</div>
-          <div class="entry"><em>Welcome to the Multiscape</em>, The Drawing Center, New York</div>
-        </div>
-        <div class="row">
-          <div class="year">2023</div>
-          <div class="entry"><em>Lennart Anderson and Nate Antolik</em>, Jeremy Scholar, London</div>
-        </div>
-        <div class="row">
-          <div class="year">2023</div>
-          <div class="entry"><em>Blocks, Furniture, Mannequins</em>, National Arts Club, New York</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Education</h2>
-      <div class="rows">
-        <div class="row">
-          <div class="year">2024</div>
-          <div class="entry">MFA, New York Studio School of Drawing, Painting and Sculpture</div>
-        </div>
-        <div class="row">
-          <div class="year">2019</div>
-          <div class="entry">Art Students League of New York</div>
-        </div>
-        <div class="row">
-          <div class="year">2004</div>
-          <div class="entry">BFA, Atlanta College of Art</div>
-        </div>
-        <div class="row">
-          <div class="year">2003</div>
-          <div class="entry">School of the Art Institute of Chicago, guest student</div>
-        </div>
-        <div class="row">
-          <div class="year">2000</div>
-          <div class="entry">Douglas Anderson School of the Arts</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Teaching</h2>
-      <div class="rows">
-        <div class="row">
-          <div class="year"></div>
-          <div class="entry">Color and Design I, Borough of Manhattan Community College</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-</html>
+    .bio div{ margin:
