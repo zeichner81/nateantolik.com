@@ -143,21 +143,53 @@
   </div>
 
   <script>
+    // Order follows: "Nate Antolik, Selected Work 2022–2025" (drawings at end)
+    // Note: Two works appear in the book but are not in your "Today" upload list (so they're omitted here):
+    // - Two Mannequins and Books on Chair
+    // - Mannequin
+    // - Folding Chair and Torso
+
     const works = [
+      // 2022–2025 (paintings)
       {
-        src: "images/articulatedmannequin.jpg",
-        alt: "Articulated Mannequin, Torso on Chair, oil on canvas, 40 × 30 in., 2023",
-        caption: "<em>Articulated Mannequin, Torso on Chair</em>, oil on canvas, 40 × 30 in., 2023"
+        src: "images/chaironterrace.jpg",
+        alt: "Chair on Terrace, oil on canvas, 11 × 14 in., 2022",
+        caption: "<em>Chair on Terrace</em>, oil on canvas, 11 × 14 in., 2022"
       },
       {
-        src: "images/assembledmannequin.jpg",
-        alt: "Assembled Mannequin, Reclining, oil on canvas, 62 × 50 in., 2022",
-        caption: "<em>Assembled Mannequin</em>, Reclining, oil on canvas, 62 × 50 in., 2022"
+        src: "images/jarinkbottle.jpg",
+        alt: "Jar, Ink Bottle, Pitcher, oil on linen, 12 × 9 in., 2024",
+        caption: "<em>Jar, Ink Bottle, Pitcher</em>, oil on linen, 12 × 9 in., 2024"
       },
       {
-        src: "images/birddecoy.jpg",
-        alt: "Plate, Glass, Bird Decoy, oil on canvas, 14 × 18 in., 2023",
-        caption: "<em>Plate, Glass, Bird Decoy</em>, oil on canvas, 14 × 18 in., 2023"
+        src: "images/tablewithplateandtwochairs.jpg",
+        alt: "Table with Plate and Two Chairs, oil on canvas, 40 × 90 in., 2024",
+        caption: "<em>Table with Plate and Two Chairs</em>, oil on canvas, 40 × 90 in., 2024"
+      },
+      {
+        src: "images/glassbottleplateclothpail.jpg",
+        alt: "Glass Bottle, Plate, Cloth, Pail, oil on canvas, 11 × 14 in., 2024",
+        caption: "<em>Glass Bottle, Plate, Cloth, Pail</em>, oil on canvas, 11 × 14 in., 2024"
+      },
+      {
+        src: "images/chairandplateoncloth.jpg",
+        alt: "Chair and Plate on Cloth, oil on linen, 24 × 30 in., 2024",
+        caption: "<em>Chair and Plate on Cloth</em>, oil on linen, 24 × 30 in., 2024"
+      },
+      {
+        src: "images/cupknifemirror.jpg",
+        alt: "Cup, Knife, Mirror, oil on linen, 9 × 12 in., 2024",
+        caption: "<em>Cup, Knife, Mirror</em>, oil on linen, 9 × 12 in., 2024"
+      },
+      {
+        src: "images/spider.jpg",
+        alt: "Spider, oil on canvas, 8 × 10 in., 2022",
+        caption: "<em>Spider</em>, oil on canvas, 8 × 10 in., 2022"
+      },
+      {
+        src: "images/twochairs.jpg",
+        alt: "Two Chairs, oil on linen, 16 × 20 in., 2024",
+        caption: "<em>Two Chairs</em>, oil on linen, 16 × 20 in., 2024"
       },
       {
         src: "images/bowlwithblocks.jpg",
@@ -165,14 +197,74 @@
         caption: "<em>Bowl with Blocks</em>, oil on canvas, 11 × 14 in., 2022"
       },
       {
+        src: "images/articulatedmannequin.jpg",
+        alt: "Articulated Mannequin, Torso on Chair, oil on canvas, 40 × 30 in., 2023",
+        caption: "<em>Articulated Mannequin, Torso on Chair</em>, oil on canvas, 40 × 30 in., 2023"
+      },
+      {
+        src: "images/birddecoy.jpg",
+        alt: "Plate, Glass, Bird Decoy, oil on canvas, 14 × 18 in., 2023",
+        caption: "<em>Plate, Glass, Bird Decoy</em>, oil on canvas, 14 × 18 in., 2023"
+      },
+      {
         src: "images/chairgreenroom.jpg",
         alt: "Chair (Green Room), oil on canvas, 48 × 42 in., 2023",
         caption: "<em>Chair (Green Room)</em>, oil on canvas, 48 × 42 in., 2023"
       },
       {
-        src: "images/chaironterrace.jpg",
-        alt: "Chair on Terrace, oil on canvas, 11 × 14 in., 2022",
-        caption: "<em>Chair on Terrace</em>, oil on canvas, 11 × 14 in., 2022"
+        src: "images/threemannequinsheadtorso.jpg",
+        alt: "Three Mannequins, Mannequin Head, Torso, oil on canvas, 16 × 20 in., 2024",
+        caption: "<em>Three Mannequins, Mannequin Head, Torso</em>, oil on canvas, 16 × 20 in., 2024"
+      },
+      {
+        src: "images/assembledmannequin.jpg",
+        alt: "Assembled Mannequin, Reclining, oil on canvas, 62 × 50 in., 2022",
+        caption: "<em>Assembled Mannequin</em>, Reclining, oil on canvas, 62 × 50 in., 2022"
+      },
+      {
+        src: "images/foldingchair.jpg",
+        alt: "Folding Chair, oil on canvas, 24 × 20 in., 2025",
+        caption: "<em>Folding Chair</em>, oil on canvas, 24 × 20 in., 2025"
+      },
+      {
+        src: "images/threemannequinsellipse.jpg",
+        alt: "Three Mannequins and Torso in Ellipse, oil on linen, 11 × 14 in., 2024",
+        caption: "<em>Three Mannequins and Torso in Ellipse</em>, oil on linen, 11 × 14 in., 2024"
+      },
+      {
+        src: "images/twomannequinschairgarmentrack.jpg",
+        alt: "Two Mannequins, Chair, Garment Rack, Drapery, oil on linen, 36 × 48 in., 2025",
+        caption: "<em>Two Mannequins, Chair, Garment Rack, Drapery</em>, oil on linen, 36 × 48 in., 2025"
+      },
+      {
+        src: "images/threemannequinstorsochair.jpg",
+        alt: "Three Mannequins, Torso, Chair, oil on linen, 24 × 30 in., 2024",
+        caption: "<em>Three Mannequins, Torso, Chair</em>, oil on linen, 24 × 30 in., 2024"
+      },
+      {
+        src: "images/fourmannequins.jpg",
+        alt: "Four Mannequins, oil on linen, 20 × 24 in., 2024",
+        caption: "<em>Four Mannequins</em>, oil on linen, 20 × 24 in., 2024"
+      },
+      {
+        src: "images/threemannequinstorso.jpg",
+        alt: "Three Mannequins and Torso, oil on linen, 14 × 18 in., 2024",
+        caption: "<em>Three Mannequins and Torso</em>, oil on linen, 14 × 18 in., 2024"
+      },
+      {
+        src: "images/twomannequinstwochairs.jpg",
+        alt: "Two Mannequins and Two Chairs, oil on linen, 16 × 20 in., 2023",
+        caption: "<em>Two Mannequins and Two Chairs</em>, oil on linen, 16 × 20 in., 2023"
+      },
+      {
+        src: "images/shoeform.jpg",
+        alt: "Shoe Form, Boxes, Wooden Forms, oil on canvas, 16 × 20 in., 2024",
+        caption: "<em>Shoe Form, Boxes, Wooden Forms</em>, oil on canvas, 16 × 20 in., 2024"
+      },
+      {
+        src: "images/lightswitch.jpg",
+        alt: "Light Switch, oil on linen, 12 × 16 in., 2024",
+        caption: "<em>Light Switch</em>, oil on linen, 12 × 16 in., 2024"
       },
       {
         src: "images/handmirror.jpg",
@@ -180,9 +272,31 @@
         caption: "<em>Hand Mirror with Chair Reflected</em>, oil on panel, 14 × 11 in., 2024"
       },
       {
-        src: "images/foldingchair.jpg",
-        alt: "Folding Chair, oil on canvas, 24 × 20 in., 2025",
-        caption: "<em>Folding Chair</em>, oil on canvas, 24 × 20 in., 2025"
+        src: "images/chairandcabinet.jpg",
+        alt: "Chair and Cabinet, oil on linen, 40 × 30 in., 2024",
+        caption: "<em>Chair and Cabinet</em>, oil on linen, 40 × 30 in., 2024"
+      },
+      {
+        src: "images/tablefourchairs.jpg",
+        alt: "Table and Four Chairs with Bottles and Bowls, oil on linen, 48 × 84 in., 2025",
+        caption: "<em>Table and Four Chairs with Bottles and Bowls</em>, oil on linen, 48 × 84 in., 2025"
+      },
+
+      // Drawings (at end)
+      {
+        src: "images/fourmannequinschairellipsedrawing.jpg",
+        alt: "Four Mannequins, Torso, Chair, graphite on watercolor-toned paper, 4.5 × 6 in., 2025",
+        caption: "<em>Four Mannequins, Torso, Chair</em>, graphite on watercolor-toned paper, 4.5 × 6 in., 2025"
+      },
+      {
+        src: "images/mannequinsandfurniture.jpg",
+        alt: "Mannequins and Furniture, graphite on watercolor-toned paper, 7 × 8 in., 2025",
+        caption: "<em>Mannequins and Furniture</em>, graphite on watercolor-toned paper, 7 × 8 in., 2025"
+      },
+      {
+        src: "images/threemannequinstorsochairdrawing.jpg",
+        alt: "Three Mannequins, Torso, Chair, graphite on paper, 7 × 9 in., 2025",
+        caption: "<em>Three Mannequins, Torso, Chair</em>, graphite on paper, 7 × 9 in., 2025"
       }
     ];
 
