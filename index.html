@@ -42,6 +42,8 @@
       align-items: baseline;
       font-size: var(--header-size);
       line-height: 1.2;
+      flex-wrap: nowrap; /* keep right side on same line */
+      gap: 18px;
     }
 
     .header .name{
@@ -49,6 +51,7 @@
       font-weight: normal;
       font-size: var(--header-size);
       white-space: nowrap;
+      flex: 0 0 auto;
     }
 
     .header .right{
@@ -56,6 +59,9 @@
       gap: 18px;
       white-space: nowrap;
       text-align: right;
+      margin-left: auto;     /* push to the far right */
+      flex: 0 0 auto;        /* don't shrink into wrapping */
+      align-items: baseline;
     }
 
     a{
@@ -108,17 +114,19 @@
         --pad-y: 24px;
       }
 
+      /* Keep header on one row; don't stack the right side below */
       .header{
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 18px;
       }
 
       .header .right{
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-        text-align: left;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 18px;
+        text-align: right;
+        margin-left: auto;
       }
     }
   </style>
@@ -129,8 +137,8 @@
     <div class="header" id="header">
       <h1 class="name">Nate Antolik</h1>
       <div class="right">
-        <span>nateantolik@gmail.com</span>
-        <a href="CV.html">CV</a>
+        <!-- removed email -->
+        <a href="info.html">Info</a>
       </div>
     </div>
 
