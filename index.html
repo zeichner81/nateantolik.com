@@ -15,9 +15,7 @@
       --caption-size: 12px;
 
       --caption-top: 10px;
-
-      --viewer-top: 70px; /* space under header */
-      --subhead-gap: 8px; /* space between name and CV link */
+      --viewer-top: 70px;
     }
 
     html, body{
@@ -37,7 +35,7 @@
       margin: 0 auto;
     }
 
-    /* Header: name left only */
+    /* Header: name left, email + CV right */
     .header{
       display: flex;
       justify-content: space-between;
@@ -50,12 +48,13 @@
       margin: 0;
       font-weight: normal;
       font-size: var(--header-size);
+      white-space: nowrap;
     }
 
-    .subhead{
-      margin-top: var(--subhead-gap);
-      font-size: var(--header-size);
-      line-height: 1.2;
+    .header .right{
+      display: flex;
+      gap: 18px;
+      white-space: nowrap;
     }
 
     a{
@@ -106,6 +105,16 @@
       :root{
         --pad-y: 24px;
       }
+
+      .header{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .header .right{
+        gap: 12px;
+      }
     }
   </style>
 </head>
@@ -114,10 +123,10 @@
   <div class="container">
     <div class="header" id="header">
       <h1 class="name">Nate Antolik</h1>
-    </div>
-
-    <div class="subhead">
-      <a href="CV.html">CV</a>
+      <div class="right">
+        <span>nateantolik@gmail.com</span>
+        <a href="CV.html">CV</a>
+      </div>
     </div>
 
     <main class="viewer" aria-live="polite">
